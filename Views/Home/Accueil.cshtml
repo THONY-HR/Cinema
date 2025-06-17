@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinemagic Home</title>
+    <link rel="stylesheet" href="~/css/styles.css">
+</head>
+<body>
+<style>
+    .nav {
+        display: flex;
+        justify-content: flex-end;
+        gap: 20px;
+        margin-right: 20px;
+    }
+
+    .nav a {
+        text-decoration: none;
+    }
+
+    img {
+        width: 30%;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+</style>
+<div class="header">
+    <div class="logo-container">
+        <img class="logo" src="~/image/logoCine.jpg" alt="Cinemagic Logo">
+        <h1>Cinemagic</h1>
+    </div>
+    <div class="user-info" id="user-info">
+        <span>@ViewBag.User.Nom</span>
+        <img src="~/image/profil.jpg" alt="User Profile" id="user-profile" />
+    </div>
+</div>
+
+<!-- Pop-up qui affichera les informations de l'utilisateur -->
+<div class="user-popup" id="user-popup">
+    <div class="popup-content">
+        <p><strong>Nom:</strong> @ViewBag.User.Nom</p>
+        <p><strong>Email:</strong> @ViewBag.User.Email</p>
+        <p><strong>Password:</strong> @ViewBag.User.Pwd</p>
+        <p><strong>Date de naissance:</strong> @ViewBag.User.Dtn</p>
+        <button id="logout-btn">Déconnexion</button>
+    </div>
+</div>
+
+
+<div class="filters">
+    <div>
+        <span class="filter-label">Category:</span>
+        <select>
+            @foreach(var categorie in ViewBag.Categories)
+            {
+                <option>@categorie.TypeCategorie</option>
+            }
+        </select>
+    </div>
+    <div>
+        <span class="filter-label">Date:</span>
+        <select>
+            <option>Aujourd'hui</option>
+            <option>Cette semaine</option>
+        </select>
+    </div>
+    <div>
+        <span class="filter-label">Salle:</span>
+        <select>
+            @foreach(var salle in ViewBag.Salles)
+            {
+                <option>@salle.NomSalle</option>
+            }
+        </select>
+    </div>
+    <div class="nav">
+        <a href="@Url.Action("ListeReservation","Home")" class="reservations-btn">
+            <img src="~/image/home.jpg" alt="Accueil">
+            <h2>Listes Reservations</h2>
+        </a>
+    </div>
+</div>
+
+<div class="movies-container">
+    @foreach(var diffusion in ViewBag.Diffusions)
+    {
+        <a href="@Url.Action("DetailleFilm", "Home", new { idDiffusion = diffusion.IdDiffusion})">
+            <div>
+                <img class="movie" alt="Movie 1">
+                <h3>@diffusion.FilmTitre<p>Paf: @diffusion.Paf Ar</p></h3>
+            </div>
+        </a>
+
+    }
+</div>
+
+<script src="~/js/script.js"></script>
+</body>
+</html>

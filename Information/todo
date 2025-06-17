@@ -1,0 +1,49 @@
+Sujet : CINÉMA
+
+Un cinéma peut comporter plusieurs salles.
+
+Table Salle :
+- Id : Numérique
+- Une salle contient plusieurs places.
+
+Configuration des places :
+- Sélectionner une salle.
+- Spécifier le nombre de colonnes (par exemple, combien de colonnes).
+- Déterminer le nombre de places et de lignes pour chaque colonne.
+- Chaque salle possède un nombre total de places, qui doit être calculé et affiché via une vue.
+
+Planification :
+- Les dirigeants gèrent un tableau des films avec les colonnes suivantes :
+  - Titre
+  - Date et heure de début et de fin
+  - Spécificité : Exemple : Interdit aux moins de 12 ans ou de 18 ans.
+  - Catégorie : Horreur, Humour, etc. (les catégories doivent figurer dans une table séparée).
+
+Diffusion :
+- Gestion des plages horaires :
+  - Heure d’ouverture et heure de diffusion par salle.
+  - Durée du film à prendre en compte.
+
+Règle :
+- Un film ne peut pas être diffusé en même temps qu’un autre dans la même salle.
+- Vérifier si un créneau est déjà occupé pour éviter tout conflit.
+- La diffusion doit se faire dans les heures d’ouverture.
+
+Réservations liées à une diffusion spécifique :
+- Les spectateurs choisissent une place :
+  - Mettre à jour l’état de la place : réservée ou payée.
+  - Règle : Si la place n’est pas payée dans l’heure suivant la réservation, elle redevient disponible.
+
+Affichage :
+- Pour le dirigeant et les réservations : afficher les places disponibles avec un code couleur :
+  - Vert : libre.
+  - Jaune : réservée.
+  - Rouge : payée.
+
+Technologie :
+- Langage : C#
+- Framework : ASP.NET Core (anciennement connu sous le nom de .NET Core).
+
+Qu'est-ce qu’ASP.NET et .NET Core ?
+- ASP.NET : un framework pour développer des applications web avec C#.
+- .NET Core (ou maintenant .NET 5+) : une version multiplateforme et plus moderne du framework .NET. Il permet de créer des applications performantes, notamment web et cloud.

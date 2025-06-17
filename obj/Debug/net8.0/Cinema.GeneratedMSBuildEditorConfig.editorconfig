@@ -1,0 +1,67 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Cinema
+build_property.RootNamespace = Cinema
+build_property.ProjectDir = D:\ITU DS PROM 3\S5\Programmation\ASPNETCORE\Cinema\Cinema\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\ITU DS PROM 3\S5\Programmation\ASPNETCORE\Cinema\Cinema
+build_property._RazorSourceGeneratorDebug = 
+
+[D:/ITU DS PROM 3/S5/Programmation/ASPNETCORE/Cinema/Cinema/Views/Admin/Admin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRtaW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ITU DS PROM 3/S5/Programmation/ASPNETCORE/Cinema/Cinema/Views/Home/Accueil.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBY2N1ZWlsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ITU DS PROM 3/S5/Programmation/ASPNETCORE/Cinema/Cinema/Views/Home/DetailleFilm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEZXRhaWxsZUZpbG0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ITU DS PROM 3/S5/Programmation/ASPNETCORE/Cinema/Cinema/Views/Home/ListeReservation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMaXN0ZVJlc2VydmF0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ITU DS PROM 3/S5/Programmation/ASPNETCORE/Cinema/Cinema/Views/Home/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ITU DS PROM 3/S5/Programmation/ASPNETCORE/Cinema/Cinema/Views/Home/PlacesDiffusion.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQbGFjZXNEaWZmdXNpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ITU DS PROM 3/S5/Programmation/ASPNETCORE/Cinema/Cinema/Views/Home/SignIn.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTaWduSW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ITU DS PROM 3/S5/Programmation/ASPNETCORE/Cinema/Cinema/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ITU DS PROM 3/S5/Programmation/ASPNETCORE/Cinema/Cinema/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ITU DS PROM 3/S5/Programmation/ASPNETCORE/Cinema/Cinema/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ITU DS PROM 3/S5/Programmation/ASPNETCORE/Cinema/Cinema/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ITU DS PROM 3/S5/Programmation/ASPNETCORE/Cinema/Cinema/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-2pfaoicsxw

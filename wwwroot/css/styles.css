@@ -1,0 +1,292 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+.logo-container {
+    margin-left: 40px;
+    display: flex;
+    align-items: center;
+}
+.logo {
+    height: 50px;
+    margin-right: 15px;
+}
+h1 {
+    margin: 0;
+}
+.user-info {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.user-info img {
+    width: 40px;
+    height: 40px;
+    margin-left: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.filters {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px;
+}
+.filters > div {
+    display: flex;
+    align-items: center;
+}
+.filter-label {
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-right: 10px;
+}
+select, input{
+    height: 50px;
+    width: 300px;
+    margin-top: 15px;
+    padding: 5px 10px;
+    background-color: #333;
+    border: 1px solid #555;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+select:hover, input:hover {
+    border-color: #ffcc00;
+    box-shadow: 0 0 5px #ffcc00;
+}
+select:focus, input:focus {
+    border-color: #ffcc00;
+    box-shadow: 0 0 8px #ffcc00;
+    background-color: #444;
+}
+
+
+/* Bouton de réservation */
+.reservations-btn {
+    margin-top: 15px;
+    background-color: #ffcc00;
+    border: none;
+    color: #000;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    border-radius: 10px;
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    font-family: "Arial", sans-serif;
+}
+
+.reservations-btn img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+.reservations-btn:hover {
+    background-color: #e6b800; /* Teinte légèrement plus foncée au survol */
+    transform: scale(1.05); /* Légèrement agrandir le bouton */
+    box-shadow: 0 8px 15px rgba(255, 204, 0, 0.5);
+}
+
+.reservations-btn:active {
+    transform: scale(1); /* Retour à la taille initiale */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+.reservations-btn h2 {
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.movies-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 30px;
+}
+.movies-container div {
+    position: relative;
+    overflow: hidden;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movies-container div img {
+    border-radius: 10px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Maintient l'image bien proportionnée */
+}
+
+.movies-container div h3{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.7); /* Fond semi-transparent pour lisibilité */
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    transition: transform 0.3s ease, color 0.3s ease;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.movies-container div:hover {
+    cursor: pointer;
+    transform: translateY(-10px);
+    box-shadow: 0 8px 15px rgba(255, 204, 0, 0.5);
+}
+
+.movies-container div:hover img {
+    transform: scale(1.2); /* Agrandissement de l'image */
+    filter: brightness(1.2);
+}
+
+.movies-container div:hover h3{
+    color: #ffcc00; /* Mettre en avant le titre lors du survol */
+}
+a{
+    list-style: none;
+}
+
+
+
+
+/* Style pour la pop-up utilisateur */
+.user-popup {
+    display: none; /* Cacher par défaut */
+    position: absolute;
+    top: 70px; /* Positionner juste sous l'icône du profil */
+    right: 20px; /* Positionner à droite de l'écran */
+    background-color: #333; /* Fond sombre */
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px; /* Bords arrondis */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Ombre portée */
+    z-index: 1000; /* Assurez-vous que la pop-up soit au-dessus des autres éléments */
+    width: 250px;
+    font-family: Arial, sans-serif;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Rendre la pop-up visible */
+.user-popup.show {
+    display: block;
+    opacity: 1;
+}
+
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.popup-content p {
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+button {
+    background-color: #ffcc00; /* Bouton de déconnexion */
+    color: #000;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+    background-color: #e6b800; /* Changement de couleur au survol */
+    box-shadow: 0 4px 6px rgba(255, 204, 0, 0.5);
+}
+
+button:active {
+    transform: scale(0.98); /* Réduction au clic */
+}
+
+/* Style pour l'icône de profil */
+#user-profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: 30px;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
+
+#user-profile:hover {
+    transform: scale(1.1); /* Agrandissement au survol */
+}
+
+/* Adaptation aux appareils mobiles */
+@media (max-width: 768px) {
+    .user-popup {
+        right: 10px;
+        width: 220px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        text-align: center;
+    }
+    .logo-container, .user-info {
+        margin-bottom: 15px;
+    }
+    .filters {
+        flex-direction: column;
+        align-items: center;
+    }
+    .movies-container {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+}
+
+@media (max-width: 1200px) {
+    .reservation-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .reservation-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .reservation-grid {
+        grid-template-columns: 1fr;
+    }
+}

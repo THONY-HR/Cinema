@@ -1,0 +1,46 @@
+1. Gestion des salles et places :  
+- Ajouter une gestion flexible des types de salles (par exemple, standard, premium, IMAX) avec des caractéristiques différentes.  
+- Inclure un plan visuel des places pour aider à la sélection, surtout pour des salles avec des configurations complexes.  
+
+2. Planification des films :  
+- Préciser la gestion des horaires pour éviter les conflits :  
+  - Ajouter un système qui vérifie automatiquement si les horaires des films ne se chevauchent pas dans une même salle.  
+  - Prévoir un délai tampon entre deux films pour la préparation de la salle.  
+- Ajouter des attributs supplémentaires pour les films :  
+  - Description ou synopsis.  
+  - Durée exacte (en minutes).  
+  - Acteurs ou réalisateur.  
+  - Image ou affiche du film.  
+
+3. Diffusion et plages horaires :  
+- Définir des horaires de maintenance pour les salles (pour les projections spéciales, tests d’équipement, etc.).  
+- Ajouter une règle pour gérer les annulations ou les modifications de planning, avec notification aux spectateurs en cas de réservation affectée.  
+
+4. Réservations :  
+- Préciser les méthodes de paiement prises en charge (paiement en ligne, sur place, etc.).  
+- Gérer les réservations en groupe, permettant à plusieurs personnes de réserver des places adjacentes.  
+- Ajouter une fonction d’alerte ou de notification pour rappeler aux utilisateurs de finaliser le paiement avant la fin du délai.  
+- Prendre en compte les remboursements en cas d’annulation (selon des règles spécifiques).  
+
+5. Gestion des utilisateurs :  
+- Séparer les rôles :  
+  - Administrateurs/Dirigeants : Gèrent les films, salles, et plannings.  
+  - Spectateurs : Réservent des places et accèdent aux informations sur les films.  
+- Ajouter une table pour gérer les comptes utilisateurs (avec authentification) :  
+  - Nom d’utilisateur, email, mot de passe (hashé).  
+  - Historique des réservations et des paiements.  
+
+6. Technologie et performances :  
+- Prévoir des tests de charge pour s’assurer que le système supporte un grand nombre d’utilisateurs simultanés.  
+- Ajouter des fonctionnalités modernes comme une API RESTful ou GraphQL pour permettre à d’autres services (par exemple, une application mobile) d’interagir avec le système.  
+
+7. Accessibilité et UX :  
+- Veiller à ce que l’interface utilisateur soit adaptée aux appareils mobiles (responsive design).  
+- Proposer des options pour les spectateurs malvoyants ou malentendants (exemple : sous-titres, séances spéciales).  
+
+8. Évolutivité et maintenance :  
+- Prévoir la possibilité d’ajouter de nouvelles fonctionnalités à l’avenir, comme des offres promotionnelles, des abonnements, ou des événements spéciaux.  
+- Documenter clairement les API et le fonctionnement du système pour faciliter la maintenance.  
+
+Conclusion :  
+Ces ajouts renforcent la clarté, l’utilisabilité et la pérennité du projet sans modifier ses grandes lignes.

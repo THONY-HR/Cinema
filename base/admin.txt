@@ -1,0 +1,14 @@
+insertion 
+    -Classification *
+    -Categorie *
+    -Film
+    -Salle
+    -DetailSalle 
+        (CALL genererSieges('S00001');)
+    -Diffusion
+
+afficher
+    *list
+        -somme reservation par salle (isany)
+        - vola niditra t@
+        

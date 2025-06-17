@@ -1,0 +1,43 @@
+Client: 
+    - login / new compte
+    - Liste reservation 
+        - liste
+        - details
+        - boutton(Payer/annuler)
+    - Accueil
+        - filtre par : Categorie, date 
+        - liste film :
+            - Titre
+            - image
+            - date de diffusion
+            - heure de debut
+            - salle
+            - duree en minute
+            - categorie
+            - synopsys
+
+    - detaille Film
+        - boutton reservation si la date n'est pas encore depasser
+        - image
+        - titre 
+        - date de diffusion
+        - heure de debut
+        - salle
+        - realisateur
+        - acteurs
+        - language (VF, VOSTFR ...)
+        - duree en minute
+        - nombre de place disponible
+    - reservation
+        - Place reserver(...)
+        - nom de la salle
+        - Titre du film 
+        - date de diffusion
+        - image du film
+        - nombre de place disponible
+        - Affichage graphique du salle
+            - colomne ex : 3 Colonne
+            - ligne : 5 ligne par colomne
+            - place : 10 place par ligne
+            - (checkBox)
+        - boutton de reservation

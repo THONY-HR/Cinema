@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire Film et Salle</title>
+    <style>
+        /* Style for the fixed admin menu bar */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        td {
+            background-color: #f9f9f9;
+        }
+        tr:nth-child(even) td {
+            background-color: #f1f1f1;
+        }
+        tr:hover td {
+            background-color: #d3d3d3;
+        }
+        
+        .admin-menu {
+            background-color: #333;
+            overflow: hidden;
+            position: fixed;  /* Fix the menu at the top */
+            top: 0;
+            width: 100%;
+            z-index: 1000;  /* Ensure it stays on top of other content */
+        }
+
+        .admin-menu a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .admin-menu a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .admin-menu a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        /* Form styling */
+        form {
+            margin: 80px 0 20px 0;  /* Add top margin to avoid overlap with the fixed menu */
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        label, input, select, textarea, button {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Admin menu bar -->
+    <div class="admin-menu">
+        <a href="#diagSalle">Reservation Par Jour/Salle</a>
+        <a href="#filmForm" class="active">Ajouter un Film</a>
+        <a href="#salleForm">Ajouter une Salle</a>
+        <a href="#diffusionForm">Insertion Diffusion</a>
+        <a href="#configSalle">Configuration Salle</a>
+        <a href="@Url.Action("Login","Home")">Deconnexion</a>
+    </div>
+
+    <div id="diagSalle">
+    <h1>Reservations Par Jour</h1>
+        <!-- Formulaire de filtre -->
+        <form id="filtreForm">
+            <!-- Filtre par Salle -->
+            <label for="filtreSalle">Sélectionner une Salle:</label>
+            <select id="filtreSalle">
+                <option value="">-- Toutes les salles --</option>
+                <!-- Les options seront ajoutées dynamiquement ici -->
+            </select>
+            <br><br>
+
+            <!-- Filtre par Jour -->
+            <label for="filtreJour">Sélectionner une Date:</label>
+            <input type="date" id="filtreJour">
+            <br><br>
+
+            <button type="button" onclick="appliquerFiltre()">Appliquer le filtre</button>
+        </form>
+
+        <table id="reservationsTable">
+            <thead>
+                <tr>
+                    <th>ID Salle</th>
+                    <th>Jour</th>
+                    <th>Nombre de Réservations</th>
+                    <th>Montant Total (€)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in ViewBag.ReservationParJours){
+                    <tr>
+                        <td>@item.IdSalle</td>
+                        <td>@item.Jour</td>
+                        <td>@item.NombreReservations</td>
+                        <td>@item.MontantTotal</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <h1>Benfice</h1>
+        <table id="benefice">
+            <thead>
+                <tr>
+                    <th>Film</th>
+                    <th>Droit de diffusion</th>
+                    <th>Nombre de Réservations</th>
+                    <th>Benefices</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in ViewBag.FilmBenefices){
+                    <tr>
+                        <td>@item.Titre</td>
+                        <td>@item.PrixDiffusion</td>
+                        <td>@item.NombreDeRegard</td>
+                        <td>@item.Benefice</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Film Form Section -->
+    <div id="filmForm">
+        <h1>Ajouter un Film</h1>
+        <form action="@Url.Action("AjouterFilm","Admin")" method="post">
+            <!-- Titre du film -->
+            <label for="titre">Titre du film :</label>
+            <input type="text" id="titre" name="titre" maxlength="150" required>
+            <br><br>
+
+            <!-- Classification -->
+            <label for="idClassification">Classification :</label>
+            <select id="idClassification" name="idClassification" required>
+                <option value="">-- Sélectionner une classification --</option>
+                @foreach(var item in ViewBag.Classifications){
+                    <option value="@item.IdClassification">@item.AgeClassification</option>
+                }
+            </select>
+            <br><br>
+
+            <!-- Catégorie -->
+            <label for="idCategorie">Catégorie :</label>
+            <select id="idCategorie" name="idCategorie" required>
+                <option value="">-- Sélectionner une catégorie --</option>
+                @foreach(var item in ViewBag.Categories){
+                    <option value="@item.IdCategorie">@item.TypeCategorie</option>
+                }
+            </select>
+            <br><br>
+
+            <!-- Synopsis -->
+            <label for="synopsis">Synopsis :</label>
+            <textarea id="synopsis" name="synopsis" rows="5" cols="40"></textarea>
+            <br><br>
+
+            <!-- Durée -->
+            <label for="duree">Durée :</label>
+            <input type="time" id="duree" name="duree" required>
+            <br><br>
+
+            <label for="prixDiffusion">Prix Diffusion :</label>
+            <input type="number" id="prixDiffusion" name="prixDiffusion" required>
+            <br><br>
+
+            <button type="submit">Ajouter le film</button>
+        </form>
+    </div>
+
+    <!-- Salle Form Section -->
+    <div id="salleForm">
+        <h1>Ajouter une Salle</h1>
+        <form action="@Url.Action("AjouterSalle","Admin")" method="post">
+            <!-- Nom de la salle -->
+            <label for="nomSalle">Nom de la salle :</label>
+            <input type="text" id="nomSalle" name="nomSalle" maxlength="50" required>
+            <br><br>
+
+            <!-- Heure d'ouverture -->
+            <label for="ouverture">Heure d'ouverture :</label>
+            <input type="time" id="ouverture" name="ouverture" required>
+            <br><br>
+
+            <!-- Heure de fermeture -->
+            <label for="fermeture">Heure de fermeture :</label>
+            <input type="time" id="fermeture" name="fermeture" required>
+            <br><br>
+
+            <button type="submit">Ajouter la salle</button>
+        </form>
+    </div>
+    
+    <div id="configSalle">
+        <h1>Configurer une Salle</h1>
+        <form action="@Url.Action("ConfigurerSalle","Admin")" method="post">
+            <label for="idSalle">Salle :</label>
+            <select id="idSalle" name="idSalle" required>
+                <option value="">-- Sélectionner une catégorie --</option>
+                @foreach(var item in ViewBag.Salles){
+                    <option value="@item.IdSalle">@item.NomSalle</option>
+                }
+            </select>
+            <br><br>
+            <!-- Colonne -->
+            <label for="colonne">Colonne :</label>
+            <input type="number" id="colonne" name="colonne" min="1" required>
+            <br><br>
+
+            <!-- Ligne -->
+            <label for="ligne">Hauteur :</label>
+            <input type="number" id="ligne" name="hauteur" min="1" required>
+            <br><br>
+
+            <!-- Position -->
+            <label for="position">PlacesParLigne :</label>
+            <input type="number" id="position" name="placesParLigne" min="1" required>
+            <br><br>
+
+            <button type="submit">Ajouter la salle</button>
+        </form>
+    </div>
+
+    <!-- Diffusion Form Section -->
+    <div id="diffusionForm">
+        <h1>Formulaire d'insertion pour la table Diffusion</h1>
+        <form action="@Url.Action("DiffuserFilm","Admin")" method="POST">
+            <label for="idSalle">Salle:</label>
+            <select id="idSalle" name="idSalle" required>
+                <option value="">-- Sélectionner une catégorie --</option>
+                @foreach(var item in ViewBag.Salles){
+                    <option value="@item.IdSalle">@item.NomSalle</option>
+                }
+            </select>
+            <br><br>
+
+            <label for="idFilm">Film:</label>
+            <select id="idFilm" name="idFilm" required>
+                <option value="">-- Sélectionner une classification --</option>
+                @foreach(var item in ViewBag.Films){
+                    <option value="@item.IdFilm">@item.Titre</option>
+                }
+            </select>
+            <br><br>
+
+            <label for="heureDebut">Heure de début:</label>
+            <input type="time" id="heureDebut" name="heureDebut" required>
+            <br><br>
+
+            <label for="paf">PAF:</label>
+            <input type="number" id="paf" name="paf" step="0.01" required>
+            <br><br>
+
+            <label for="daty">Date:</label>
+            <input type="date" id="daty" name="daty" required>
+            <br><br>
+
+            <button type="submit">Soumettre</button>
+        </form>
+    </div>
+
+    <script>
+        // Fonction pour ajouter dynamiquement les options de salles dans le filtre
+        function ajouterOptionsSalles() {
+            // Récupérer toutes les lignes du tableau
+            const lignes = document.querySelectorAll('#reservationsTable tbody tr');
+
+            // Créer un ensemble pour éviter les doublons
+            const salles = new Set();
+
+            // Parcourir toutes les lignes pour extraire les ID de salles
+            lignes.forEach(function(ligne) {
+                const salle = ligne.cells[0].innerText;  // Récupérer l'ID de la salle de la cellule
+                salles.add(salle);  // Ajouter l'ID de la salle dans l'ensemble (Set)
+            });
+
+            // Ajouter les options dans le menu déroulant
+            const selectSalle = document.getElementById('filtreSalle');
+            salles.forEach(function(salle) {
+                const option = document.createElement('option');
+                option.value = salle;
+                option.textContent = `Salle ${salle}`;
+                selectSalle.appendChild(option);  // Ajouter l'option au select
+            });
+        }
+
+        // Fonction pour appliquer le filtre
+        function appliquerFiltre() {
+            // Récupérer les valeurs du filtre
+            const salleFiltre = document.getElementById('filtreSalle').value;
+            const jourFiltre = document.getElementById('filtreJour').value;
+
+            // Récupérer toutes les lignes du tableau
+            const lignes = document.querySelectorAll('#reservationsTable tbody tr');
+
+            // Parcourir toutes les lignes pour les filtrer
+            lignes.forEach(function(ligne) {
+                const salle = ligne.cells[0].innerText;  // Récupérer l'ID de la salle de la cellule
+                const jour = ligne.cells[1].innerText;   // Récupérer la date de la cellule
+
+                // Vérifier si la ligne correspond aux critères du filtre
+                const correspondSalle = salleFiltre === '' || salle === salleFiltre;
+                const correspondJour = jourFiltre === '' || jour === jourFiltre;
+
+                // Afficher ou masquer la ligne selon le filtre
+                if (correspondSalle && correspondJour) {
+                    ligne.style.display = '';
+                } else {
+                    ligne.style.display = 'none';
+                }
+            });
+        }
+
+        // Appeler la fonction pour ajouter les options de salle au chargement de la page
+        document.addEventListener('DOMContentLoaded', function() {
+            ajouterOptionsSalles();
+        });
+    </script>
+</body>
+</html>

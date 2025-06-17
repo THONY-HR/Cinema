@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinemagic - Réservations</title>
+    <link rel="stylesheet" href="~/css/styles.css">
+    <style>
+        /* Styles CSS pour la grille de produits */
+        .reservation-grid {
+            display: grid;
+            justify-content: space-between;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding: 20px;
+        }
+
+        .liste-reservation {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        .liste-reservation.checked {
+            background-color: #d1e7dd; /* Vert clair */
+        }
+
+        .liste-reservation h1 {
+            font-size: 16px;
+            margin: 5px 0;
+            color: #333;
+        }
+
+        .liste-reservation p {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .reservation-checkbox {
+            margin-top: 10px;
+            transform: scale(1.5);
+            cursor: pointer;
+        }
+
+        .pay-btn {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .pay-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <div class="logo-container">
+        <img class="logo" src="~/image/logoCine.jpg" alt="Cinemagic Logo">
+        <h1>Cinemagic</h1>
+    </div>
+    <div class="user-info" id="user-info">
+        <span>@ViewBag.User.Nom</span>
+        <img src="~/image/profil.jpg" alt="User Profile" id="user-profile" />
+    </div>
+</div>
+
+<!-- Pop-up qui affichera les informations de l'utilisateur -->
+<div class="user-popup" id="user-popup">
+    <div class="popup-content">
+        <p><strong>Nom:</strong> @ViewBag.User.Nom</p>
+        <p><strong>Email:</strong> @ViewBag.User.Email</p>
+        <p><strong>Password:</strong> @ViewBag.User.Pwd</p>
+        <p><strong>Date de naissance:</strong> @ViewBag.User.Dtn</p>
+        <button id="logout-btn">Déconnexion</button>
+    </div>
+</div>
+
+<div class="nav">
+    <a href="@Url.Action("Accueil","Home")" class="reservations-btn">
+        <img src="~/image/home.jpg" alt="Accueil">
+        <h2>Accueil</h2>
+    </a>
+</div>
+    <form id="payement-multi" id="reservation-form" action="@Url.Action("Payement", "Home")" method="post">
+        <input type="hidden" name="donner" id="donner-input">
+        <select name="idMethodePayement">
+            @foreach(var item in ViewBag.ListeMethodePayement){
+                <option value="@item.IdMethodePayement">@item.Methode</option>
+            }
+        </select>
+        <button type="submit" onclick="submitReservations()">Payer</button>
+    </form>
+<div class="content">
+    <div class="reservation-grid" id="reservation-list">
+        @if(ViewBag.ListeReservations.Length > 0){
+            @foreach(var ListeReservation in ViewBag.ListeReservations) {
+                @if(ListeReservation.IdStatut == 2){
+                    <div class="liste-reservation" id="reservation-@ListeReservation.IdReservation">
+                        <h1>@ListeReservation.FilmTitre</h1>
+                        <p>@ListeReservation.NomSalle</p>
+                        <p>@ListeReservation.DiffusionDate</p>
+                        <input type="checkbox" 
+                            class="reservation-checkbox" 
+                            data-id="@ListeReservation.IdReservation" 
+                            data-film="@ListeReservation.FilmTitre">
+                    </div>
+                }else if(ListeReservation.IdStatut == 4)
+                {
+                    <div class="liste-reservation" id="reservation-@ListeReservation.IdReservation">
+                        <h1>@ListeReservation.FilmTitre</h1>
+                        <p>@ListeReservation.NomSalle</p>
+                        <p>@ListeReservation.DiffusionDate</p>
+                        <h2 style="color: rgb(225, 124, 0);">reservation annuler</h2>
+                    </div>
+                }else{
+                    <div class="liste-reservation" id="reservation-@ListeReservation.IdReservation">
+                        <h1>@ListeReservation.FilmTitre</h1>
+                        <p>@ListeReservation.NomSalle</p>
+                        <p>@ListeReservation.DiffusionDate</p>
+                        <h2 style="color: rgb(8, 245, 0);">reservation Payer</h2>
+                    </div>
+                }
+            }
+        } else {
+            <h1>Aucune réservation à afficher</h1>
+        }
+    </div>
+</div>
+
+<script>
+
+    let selectedReservations = [];
+    const elementPayement = document.getElementById('payement-multi');
+    document.querySelectorAll('.reservation-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', function () {
+            const reservationId = this.dataset.id;
+
+            if (this.checked) {
+                selectedReservations.push(reservationId);
+                this.closest('.liste-reservation').classList.add('checked');
+            } else {
+                selectedReservations = selectedReservations.filter(item => item.id !== reservationId);
+                this.closest('.liste-reservation').classList.remove('checked');
+            }
+
+            console.log(selectedReservations);
+        });
+    });
+
+    function submitReservations() {
+        if (selectedReservations.length === 0) {
+            alert('Veuillez sélectionner au moins une réservation.');
+            return;
+        }else{
+            const reservationsJson = JSON.stringify(selectedReservations);
+            document.getElementById('donner-input').value = reservationsJson;
+            console.log('Données envoyées:', reservationsJson);
+
+            // Simuler l'envoi au serveur
+            alert('Les réservations suivantes ont été payées :\n' + reservationsJson);
+
+            // Réinitialiser la sélection
+            selectedReservations = [];
+            document.querySelectorAll('.reservation-checkbox').forEach(checkbox => {
+                checkbox.checked = false;
+                checkbox.closest('.liste-reservation').classList.remove('checked');
+            });
+        }
+    }
+</script>
+<script src="~/js/script.js"></script>
+</body>
+</html>

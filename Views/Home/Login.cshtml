@@ -1,0 +1,32 @@
+@{
+    ViewData["Title"] = "Login";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Cinemagic</title>
+    <link rel="stylesheet" href="~/css/login.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Cinemagic Login</h1>
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-info">
+            @TempData["Message"]
+        </div>
+    }
+    <form method="post" action="@Url.Action("Authenticate", "Requete")">
+        <input type="email" name="email" placeholder="Email" value="rantonirinaanthony@gmail.com"required>
+        <input type="password" name="password" placeholder="Password" value="031013dter" required>
+        <button type="submit">Login</button>
+    </form>
+    <a href="@Url.Action("RedirectSignIn", "Home")" style="display: block; margin-top: 10px; color: #ffffff;">Create Account</a>
+    <a href="@Url.Action("Admin", "Admin")" style="display: block; margin-top: 10px; color: #ffffff;">Admin</a>
+</div>
+
+</body>
+</html>

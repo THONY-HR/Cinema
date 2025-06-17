@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinemagic Home</title>
+    <link rel="stylesheet" href="~/css/styles.css">
+</head>
+<style>
+    /* Barre de navigation */
+    .nav {
+        display: flex;
+        justify-content: flex-end;
+        gap: 20px;
+        margin-right: 20px;
+    }
+
+    .nav a {
+        text-decoration: none;
+    }
+
+    /* Conteneur principal */
+    .container {
+        display: flex;
+        padding: 40px;
+        gap: 30px;
+        margin-top: 30px;
+        align-items: flex-start;
+        background-color: #1e1e1e; /* Fond sombre pour contraste */
+        border-radius: 10px;
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    img {
+        width: 30%;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .film-section {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 60%;
+    }
+
+    /* Style du titre */
+.film-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    color: var(--title-text-color, #fff);
+    background-color: var(--title-bg-color, #000);
+}
+
+.film {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    line-height: 1.5;
+    background-color: var(--info-bg-color, #333);
+    color: var(--info-text-color, #ddd);
+}
+
+.film h3 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--subtitle-color, #ffcc00);
+}
+
+
+    .film p {
+        margin: 0;
+        color: #ddd; /* Texte légèrement adouci */
+    }
+</style>
+<body>
+
+<div class="header">
+    <div class="logo-container">
+        <img class="logo" src="~/image/logoCine.jpg" alt="Cinemagic Logo">
+        <h1>Cinemagic</h1>
+    </div>
+    <div class="user-info" id="user-info">
+        <span>@ViewBag.User.Nom</span>
+        <img src="~/image/profil.jpg" alt="User Profile" id="user-profile" />
+    </div>
+</div>
+
+<!-- Pop-up qui affichera les informations de l'utilisateur -->
+<div class="user-popup" id="user-popup">
+    <div class="popup-content">
+        <p><strong>Nom:</strong> @ViewBag.User.Nom</p>
+        <p><strong>Email:</strong> @ViewBag.User.Email</p>
+        <p><strong>Password:</strong> @ViewBag.User.Pwd</p>
+        <p><strong>Date de naissance:</strong> @ViewBag.User.Dtn</p>
+        <button id="logout-btn">Déconnexion</button>
+    </div>
+</div>
+
+<div class="nav">
+    <a href="@Url.Action("PlacesDiffusion","Home", new { idDiffusion = ViewBag.Diffusion.IdDiffusion })" class="reservations-btn" style="width: 250px;">
+        <h2>Réserver</h2>
+    </a>
+    <a href="@Url.Action("Accueil","Home")" class="reservations-btn">
+        <img src="~/image/home.jpg" alt="Accueil">
+        <h2>Accueil</h2>
+    </a>
+</div>
+
+<div class="container">
+    <img class="movie" src="~/image/movie.jpg" alt="Movie 1">
+    <div class="film-section">
+        <div class="film-title">@ViewBag.Diffusion.FilmTitre</div>
+        <div class="film">
+            <h3>Informations</h3>
+            <p>@ViewBag.Diffusion.FilmDuree Heure | @ViewBag.Diffusion.TypeCategorie | @ViewBag.Diffusion.Daty | Salle : @ViewBag.Diffusion.NomSalle</p>
+            @if(ViewBag.Diffusion.AgeClassification != 0){
+                <p>Deconseiller Au moins de @ViewBag.Diffusion.AgeClassification</p>
+            }
+            <p>Debut du diffusion: @ViewBag.Diffusion.HeureDebut</p>
+        </div>
+        <div class="film">
+            <h3>Synopsis</h3>
+            <p>@ViewBag.Diffusion.Synopsis</p>
+        </div>
+        <div class="film">
+            <video width="600" controls>
+                <source src="~/videos/Dragons3.mp4" type="video/mp4">
+                Votre navigateur ne supporte pas la balise vidéo.
+            </video>
+        </div>
+    </div>
+
+</div>
+
+<script src="~/js/script.js"></script>
+</body>
+</html>

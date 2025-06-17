@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinemagic Home</title>
+    <link rel="stylesheet" href="~/css/styles.css">
+</head>
+<body>
+<style>
+    .nav {
+        display: flex;
+        justify-content: flex-end;
+        gap: 20px;
+        margin-right: 20px;
+    }
+
+    .nav a {
+        text-decoration: none;
+    }
+
+    img {
+        width: 30%;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+    .colonne {
+        display: inline-block;
+        width: auto;
+        margin-right: 20px;
+    }
+
+    .Hauteur {
+        height: 33px;
+        margin-bottom: 10px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .chaiseParHauteur {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        background-color: #ccc;
+        text-align: center;
+        line-height: 32px;
+        font-size: 6px;
+        color: #333;
+        cursor: pointer;
+    }
+</style>
+<div class="header">
+    <div class="logo-container">
+        <img class="logo" src="~/image/logoCine.jpg" alt="Cinemagic Logo">
+        <h1>Cinemagic</h1>
+    </div>
+    <div class="user-info" id="user-info">
+        <span>@ViewBag.User.Nom</span>
+        <img src="~/image/profil.jpg" alt="User Profile" id="user-profile" />
+    </div>
+</div>
+
+<!-- Pop-up qui affichera les informations de l'utilisateur -->
+<div class="user-popup" id="user-popup">
+    <div class="popup-content">
+        <p><strong>Nom:</strong> @ViewBag.User.Nom</p>
+        <p><strong>Email:</strong> @ViewBag.User.Email</p>
+        <p><strong>Password:</strong> @ViewBag.User.Pwd</p>
+        <p><strong>Date de naissance:</strong> @ViewBag.User.Dtn</p>
+        <button id="logout-btn">Déconnexion</button>
+    </div>
+</div>
+
+<div class="nav">
+    <form id="reservation-form" action="@Url.Action("Reservation", "Home")" method="post">
+        <input type="hidden" name="donner" id="donner-input">
+        <button type="submit" onclick="reserver()">Réserver</button>
+    </form>
+
+    <a href="@Url.Action("Accueil","Home")" class="reservations-btn">
+        <img src="~/image/home.jpg" alt="Accueil">
+        <h2>Accueil</h2>
+    </a>
+</div>
+
+<div class="container">
+    @for(int c=1; c<= ViewBag.GestionPlace.Colonne; c++){
+        <div class="colonne">
+            @for(int h=1; h<= ViewBag.GestionPlace.Hauteur[c-1]; h++){
+                <div class="Hauteur">
+                    @for(int p=1; p<= ViewBag.GestionPlace.PlacesParLigne[c-1]; p++){
+                        @for(int s=0; s< ViewBag.GestionPlace.PlacesDiffusions.Length; s++){
+                            @if(ViewBag.GestionPlace.PlacesDiffusions[s].Colonne == c && 
+                                ViewBag.GestionPlace.PlacesDiffusions[s].Ligne == h &&
+                                ViewBag.GestionPlace.PlacesDiffusions[s].Position == p
+                            ){
+                                @if(ViewBag.GestionPlace.PlacesDiffusions[s].StatutSiege == "libre"){
+                                    <a href="#" >
+                                        <div onclick="recuperer(@ViewBag.User.IdUser, @ViewBag.GestionPlace.PlacesDiffusions[s].IdDiffusion, '@ViewBag.GestionPlace.PlacesDiffusions[s].IdDetailSalle', this)" class="chaiseParHauteur" style="background-color: green;">
+                                            @ViewBag.GestionPlace.PlacesDiffusions[s].Position
+                                        </div>
+                                    </a>
+                                }else if(ViewBag.GestionPlace.PlacesDiffusions[s].StatutSiege == "reserve"){
+                                    <div class="chaiseParHauteur" style="background-color: rgb(255, 187, 61);">@ViewBag.GestionPlace.PlacesDiffusions[s].Position</div>
+                                }else{
+                                    <div class="chaiseParHauteur" style="background-color: rgb(255, 0, 0);">@ViewBag.GestionPlace.PlacesDiffusions[s].Position</div>                                    
+                                }
+                            }
+                        }
+                    }
+                </div>
+            }
+        </div>  
+    }  
+</div>
+<script>
+    let reservation = [];
+
+    function recuperer(idUser, idDiffusion, idDetailSalle, element) {
+        const donner = { IdUser: idUser, IdDiffusion: idDiffusion, IdDetailSalle: idDetailSalle };
+        const index = reservation.findIndex(item => item.IdDetailSalle === donner.IdDetailSalle);
+
+        if (index !== -1) {
+            reservation.splice(index, 1);
+            element.style.backgroundColor = 'green';
+        } else {
+            reservation.push(donner);
+            element.style.backgroundColor = 'skyblue'; // Couleur bleu ciel
+        }
+
+        console.log(reservation);
+    }
+function reserver() {
+    const donner = JSON.stringify(reservation);
+    document.getElementById('donner-input').value = donner;
+}
+
+</script>
+
+
+<script src="~/js/script.js"></script>
+</body>
+</html>
