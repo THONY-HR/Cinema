@@ -1,7 +1,7 @@
 # 🎬 Projet CINÉMA
 
 Ce projet simule la gestion d’un cinéma à l’aide de **C#** et **ASP.NET Core**.
-
+![Aperçu du projet](demo/demo.png)
 ## 🏛️ Structure du cinéma
 
 - Un **cinéma** possède plusieurs **salles**.
